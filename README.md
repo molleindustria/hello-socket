@@ -3,7 +3,10 @@
 Socket.io is a javascript library that runs in both the browser and server to allow realtime communication between the two.  
 This allow you to create environments where many people can interact on the same page.
 
-Socket.io does this by having both a client-side and a server-side library which communicate with each other through named events that pass between the two.
+Socket.io does this by having both a client-side and a server-side library which communicate with each other through events transmitted between the two.
+
+Socket.io uses WebSocket, which is a internet communication protocol like (HTTP or FTP or email) specifically designed for real-time communication. You don't need to know WebSocket in order to use socket.io.
+
 
 ## This example
 
@@ -36,6 +39,23 @@ Packages that we are going to import using the `require()` command are typically
 Always consider that similar operations can be implemented with different patterns.  
 
 **index.html** is a barebone client. Can you figure out how the two interact?  
+
+Now run:
+
+`nodemon server.js`
+
+in the terminal (or node server.js)
+
+When you point your browser to *localhost:3000* a series of things happen:
+
+* the server points your browser to the "public" folder, where it looks for and finds an index.html
+* index.html loads the client side part of socket.io (see the script tag in the head)
+* the js script creates an io object which automatically establishes a connection (socket) with the server
+* the js script also creates a listener for an event labeled "message"
+* meanwhile server.js (which is already running and listening to the port 3000) receives the connection and creates a socket object
+* as a result of an incoming connection it emits an event called "connection"
+* the client (index.html) receives the event and produces a pop up
+
 
 More info:  
 [Intro to Socket.io](https://www.ably.io/concepts/socketio)  
